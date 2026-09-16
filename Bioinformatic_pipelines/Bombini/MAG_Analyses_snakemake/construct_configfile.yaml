@@ -1,0 +1,48 @@
+echo 'mags:' > config.yaml
+
+for mag in $(cat MAG_ID_checkm_filtered.txt);
+do
+
+MAGBASE=$mag
+
+MAGID=`echo ${MAGBASE} | sed -r 's/_/-/g'`
+
+echo " "${MAGID}":" >> config.yaml 
+
+MAGLIST=$(ls /work/FAC/FBM/DMF/pengel/spirit/chuyghe/bumble_bees/analyses_metagenomes/Input/all_genomes/${MAGBASE}.f*a)
+
+echo $MAGLIST
+
+for i in $MAGLIST; do
+        echo "  - ${i}" >> config.yaml
+
+done
+done
+
+echo 'samples:' >> config.yaml
+
+for sample in $(cat Sample_ID.txt);
+do
+
+FILEBASE=$sample
+
+SMPLID=`echo ${FILEBASE} | sed -r 's/_/-/g'`
+
+echo " "${SMPLID}":" >> config.yaml 
+
+FILELIST=$(ls /work/FAC/FBM/DMF/pengel/spirit/chuyghe/bumble_bees/metagenomes_snakemake/output/01_preprocessing/02_nohost/${FILEBASE}_nohost_R[12].fastq.gz)
+
+echo $FILELIST
+
+for i in $FILELIST; do
+        echo "  - ${i}" >> config.yaml
+
+done
+done
+
+
+echo '' >> config.yaml
+echo 'snakefile_dir: /work/FAC/FBM/DMF/pengel/spirit/chuyghe/bumble_bees/analyses_metagenomes/' >> config.yaml
+
+echo 'tmp_dir: /scratch/chuyghe/BBB_MAGS/' >> config.yaml
+echo 'host_ref: /work/FAC/FBM/DMF/pengel/general_data/common_databases/Host_reference_genomes/Bombus_fervidus_nucleargenome/BomFerv' >> config.yaml
