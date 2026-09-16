@@ -1,0 +1,8 @@
+name: drep_env
+channels:
+  - conda-forge
+  - bioconda
+  - defaults
+dependencies:
+  - drep=3.7.1
+  - checkm-genome=1.2.5
